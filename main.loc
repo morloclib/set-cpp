@@ -5,6 +5,7 @@ import root-cpp
 
 type Cpp => (Set a) = "std::set<$1>" a
 
+%inline
 source Cpp from "set.hpp"
     ( "morloc_member" as member
     , "morloc_insertSet" as insertSet
@@ -30,6 +31,7 @@ instance Packable [a] (Set a) where
    )
 
 instance Foldable Set where
+  %inline
   source Cpp from "set.hpp"
     ( "morloc_fold_set" as fold
     , "morloc_fold1_set" as fold1
@@ -37,6 +39,7 @@ instance Foldable Set where
     )
 
 instance Semigroup (Set a) where
+  %inline
   source Cpp from "set.hpp" ("morloc_union" as (<>))
 
 instance Monoid (Set a) where
