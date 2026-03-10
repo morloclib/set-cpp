@@ -1,0 +1,43 @@
+module set-cpp (*)
+
+import set
+import root-cpp
+
+type Cpp => (Set a) = "std::set<$1>" a
+
+source Cpp from "set.hpp"
+    ( "morloc_member" as member
+    , "morloc_insertSet" as insertSet
+    , "morloc_deleteSet" as deleteSet
+    , "morloc_singleton" as singleton
+    , "morloc_fromList" as fromList
+    , "morloc_toList" as toList
+    , "morloc_size" as size
+    , "morloc_union" as union
+    , "morloc_intersection" as intersection
+    , "morloc_difference" as difference
+    , "morloc_symmetricDifference" as symmetricDifference
+    , "morloc_isSubset" as isSubset
+    , "morloc_isDisjoint" as isDisjoint
+    , "morloc_filterSet" as filterSet
+    , "morloc_mapSet" as mapSet
+    )
+
+instance Packable [a] (Set a) where
+  source Cpp from "set.hpp"
+   ( "morloc_packSet" as pack
+   , "morloc_unpackSet" as unpack
+   )
+
+instance Foldable Set where
+  source Cpp from "set.hpp"
+    ( "morloc_fold_set" as fold
+    , "morloc_fold1_set" as fold1
+    , "morloc_safeFold1_set" as safeFold1
+    )
+
+instance Semigroup (Set a) where
+  source Cpp from "set.hpp" ("morloc_union" as (<>))
+
+instance Monoid (Set a) where
+  source Cpp from "set.hpp" ("morloc_emptySet" as mempty)
