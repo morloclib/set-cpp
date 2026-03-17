@@ -4,6 +4,7 @@
 #include <set>
 #include <vector>
 #include <functional>
+#include <type_traits>
 #include <optional>
 #include <stdexcept>
 
@@ -149,8 +150,8 @@ bool morloc_isDisjoint(const std::set<A>& a, const std::set<A>& b) {
 // --- Transform ---
 
 // filterSet :: (a -> Bool) -> Set a -> Set a
-template <class A>
-std::set<A> morloc_filterSet(std::function<bool(A)> f, const std::set<A>& s) {
+template <class A, class F>
+std::set<A> morloc_filterSet(F f, const std::set<A>& s) {
     std::set<A> result;
     for (const auto& elem : s) {
         if (f(elem)) {
@@ -161,8 +162,11 @@ std::set<A> morloc_filterSet(std::function<bool(A)> f, const std::set<A>& s) {
 }
 
 // mapSet :: (a -> b) -> Set a -> Set b
-template <class A, class B>
-std::set<B> morloc_mapSet(std::function<B(A)> f, const std::set<A>& s) {
+template <class A, class F>
+auto morloc_mapSet(F f, const std::set<A>& s)
+    -> std::set<std::invoke_result_t<F, const A&>>
+{
+    using B = std::invoke_result_t<F, const A&>;
     std::set<B> result;
     for (const auto& elem : s) {
         result.insert(f(elem));
