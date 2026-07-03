@@ -13,7 +13,6 @@ source Cpp from "set.hpp"
     , "morloc_singleton" as singleton
     , "morloc_fromList" as fromList
     , "morloc_toList" as toList
-    , "morloc_size" as size
     , "morloc_union" as union
     , "morloc_intersection" as intersection
     , "morloc_difference" as difference
@@ -29,6 +28,10 @@ instance Packable [a] (Set a) where
    ( "morloc_packSet" as pack
    , "morloc_unpackSet" as unpack
    )
+
+instance Sizeable (Set a) where
+  %inline
+  source Cpp from "set.hpp" ("morloc_size" as size)
 
 instance Foldable Set where
   %inline

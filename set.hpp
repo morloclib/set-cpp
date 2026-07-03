@@ -34,6 +34,12 @@ std::set<A> morloc_fromList(const std::vector<A>& xs) {
     return std::set<A>(xs.begin(), xs.end());
 }
 
+// size :: [a] -> 
+template <class A>
+uint64_t morloc_size(const std::set<A>& xs) {
+    return static_cast<uint64_t>(xs.size());
+}
+
 // toList :: Set a -> [a]
 template <class A>
 std::vector<A> morloc_toList(const std::set<A>& s) {
@@ -46,12 +52,6 @@ std::vector<A> morloc_toList(const std::set<A>& s) {
 template <class A>
 bool morloc_member(const A& x, const std::set<A>& s) {
     return s.count(x) > 0;
-}
-
-// size :: Set a -> Int
-template <class A>
-int morloc_size(const std::set<A>& s) {
-    return static_cast<int>(s.size());
 }
 
 // --- Modify ---
