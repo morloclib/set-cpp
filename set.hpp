@@ -5,6 +5,7 @@
 #include <vector>
 #include <functional>
 #include <type_traits>
+#include <utility>
 #include <optional>
 #include <stdexcept>
 
@@ -181,7 +182,7 @@ template <class F, class A, class B>
 B morloc_fold_set(F&& f, B init, const std::set<A>& s) {
     B acc = init;
     for (const auto& elem : s) {
-        acc = f(acc, elem);
+        acc = f(std::move(acc), elem);
     }
     return acc;
 }
@@ -196,7 +197,7 @@ A morloc_fold1_set(F&& f, const std::set<A>& s) {
     A acc = *it;
     ++it;
     for (; it != s.end(); ++it) {
-        acc = f(acc, *it);
+        acc = f(std::move(acc), *it);
     }
     return acc;
 }
@@ -211,7 +212,7 @@ std::optional<A> morloc_safeFold1_set(F&& f, const std::set<A>& s) {
     A acc = *it;
     ++it;
     for (; it != s.end(); ++it) {
-        acc = f(acc, *it);
+        acc = f(std::move(acc), *it);
     }
     return acc;
 }
