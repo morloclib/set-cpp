@@ -231,4 +231,12 @@ inline MorlocEmptySetFactory morloc_emptySet() {
     return MorlocEmptySetFactory{};
 }
 
+// mconcat :: [Set a] -> Set a
+template <class A>
+std::set<A> morloc_mconcat_set(const std::vector<std::set<A>>& xss) {
+    std::set<A> result;
+    for (const auto& xs : xss) result.insert(xs.begin(), xs.end());
+    return result;
+}
+
 #endif

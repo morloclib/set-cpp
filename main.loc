@@ -46,4 +46,7 @@ instance Semigroup (Set a) where
   source Cpp from "set.hpp" ("morloc_union" as (<>))
 
 instance Monoid (Set a) where
-  source Cpp from "set.hpp" ("morloc_emptySet" as mempty)
+  source Cpp from "set.hpp"
+    ( "morloc_emptySet" as mempty
+    , "morloc_mconcat_set" as mconcat
+    )
