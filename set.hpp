@@ -41,6 +41,11 @@ uint64_t morloc_size(const std::set<A>& xs) {
     return static_cast<uint64_t>(xs.size());
 }
 
+template <class A>
+int morloc_length_set(const std::set<A>& xs) {
+    return static_cast<int>(xs.size());
+}
+
 // toList :: Set a -> [a]
 template <class A>
 std::vector<A> morloc_toList(const std::set<A>& s) {
